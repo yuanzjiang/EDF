@@ -1,0 +1,40 @@
+dataset: CIFAR10
+device: [0,1,2,3]
+
+ipc: 1000
+syn_steps: 80
+expert_epochs: 2
+lr_img: 100
+lr_teacher: 0.01
+buffer_path: /mnt/hwfile/gveval/wangkai.p/buffer_storage/in1k_cifar10/
+data_path: ../dataset
+ema_decay: 0.995
+Iteration: 10000
+batch_syn: 1000
+
+# wandb
+project: LRI-DD
+name: cifar10_ipc1000_loss_act_avg_only_low_dyn_convd3_map
+
+num_eval: 1
+eval_it: 1000
+skip_first_eva: False
+
+lr_y: 10.
+Momentum_y: 0.9
+threshold: 1.5
+pix_init: samples_predicted_correctly
+Sequential_Generation: False
+batch_train: 128
+min_start_epoch: 40
+max_start_epoch: 60
+lr_lr: 0.00001
+zca: True
+
+interval: 200
+loss_threshold: 0.25
+act_threshold: 0.5
+model_name: ConvNet
+activation_model_path: ../cam_models/CIFAR10/ConvNet_best.pt
+target_layer_shallow: 3
+target_layer_deep: 11

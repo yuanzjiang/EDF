@@ -1,0 +1,45 @@
+dataset: ImageNet
+subset: imagenette
+res: 128
+model: ConvNetD5
+device: [0,1,2,3]
+
+ipc: 50
+syn_steps: 80
+expert_epochs: 2
+lr_img: 1000
+lr_teacher: 0.01
+buffer_path: ../buffer_storage/in1k
+ema_decay: 0.999
+Iteration: 10000
+batch_syn: 128
+
+# wandb
+project: EDF
+name: imagenette_ipc50
+
+num_eval: 1
+eval_it: 500
+skip_first_eva: False
+
+lr_y: 5.0
+Momentum_y: 0.9
+threshold: 1.5
+pix_init: samples_predicted_correctly
+batch_train: 128
+
+Sequential_Generation: True
+min_start_epoch: 0
+current_max_start_epoch: 20
+max_start_epoch: 40
+expansion_end_epoch: 2000
+
+lr_lr: 0.00001
+
+zca: False
+
+interval: 200
+loss_threshold: 0.375
+model_name: ResNet18
+target_layer_deep: 'layer4'
+beta: 1.0

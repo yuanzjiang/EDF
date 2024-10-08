@@ -1,0 +1,45 @@
+dataset: ImageNet
+subset: birds_easy
+res: 128
+model: ConvNetD5
+device: [0,1,2,3]
+
+ipc: 1
+syn_steps: 40
+expert_epochs: 2
+lr_img: 10000
+lr_teacher: 0.01
+buffer_path: ../buffer_storage/in1k
+ema_decay: 0.999
+Iteration: 10000
+batch_syn: 1000
+
+# wandb
+project: Comp-DD
+name: birds_easy_ipc1
+
+num_eval: 1
+eval_it: 500
+skip_first_eva: False
+
+lr_y: 2.0
+Momentum_y: 0.9
+threshold: 1.7
+pix_init: samples_predicted_correctly
+batch_train: 128
+
+Sequential_Generation: True
+min_start_epoch: 0
+current_max_start_epoch: 5
+max_start_epoch: 10
+expansion_end_epoch: 1000
+
+lr_lr: 0.00001
+
+zca: False
+
+interval: 50
+loss_threshold: 0.0
+model_name: ResNet18
+target_layer_deep: 'layer4'
+beta: 1.0

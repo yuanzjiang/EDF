@@ -1,0 +1,45 @@
+dataset: Tiny
+res: 64
+model: ConvNetD4
+device: [0,1,2,3]
+
+ipc: 50
+syn_steps: 80
+expert_epochs: 2
+lr_img: 100
+lr_teacher: 0.01
+buffer_path: /mnt/hwfile/gveval/wangkai.p/buffer_storage/tiny
+data_path: ../dataset/tiny-imagenet-200
+ema_decay: 0.995
+Iteration: 10000
+batch_syn: 250
+
+# wandb
+project: LRI-DD
+name: tiny_ipc50_loss_scaled_act_avg_alter_100_dyn_res18_map
+
+num_eval: 1
+eval_it: 500
+skip_first_eva: False
+
+lr_y: 10.0
+Momentum_y: 0.9
+threshold: 1.1
+pix_init: samples_predicted_correctly
+expansion_end_epoch: 1
+batch_train: 128
+
+Sequential_Generation: False
+min_start_epoch: 40
+max_start_epoch: 70
+
+lr_lr: 0.0001
+
+zca: True
+
+interval: 100
+loss_threshold: 0.5
+act_threshold: 0.5
+model_name: ResNet18
+activation_model_path: ../cam_models/Tiny/ResNet18_best.pth
+target_layer_deep: 'layer4'
