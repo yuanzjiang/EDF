@@ -130,4 +130,4 @@ def load_comp_dd(data_path, category, subset, im_size, batch_size):
 
     dst_train = create_simple_tensor_dataset(dst_train, class_map)
     dst_test = create_simple_tensor_dataset(dst_test, class_map)
-    return channel, im_size, num_classes, dst_train, dst_test, class_map, class_map_inv
+    return channel, num_classes, dst_train, dst_test, class_map, class_map_inv

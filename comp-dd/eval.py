@@ -19,7 +19,7 @@ def main(args):
     args.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     im_size = (args.res, args.res)
-    channel, im_size, num_classes, dst_train, dst_test, class_map, class_map_inv = load_comp_dd(
+    channel, num_classes, dst_train, dst_test, class_map, class_map_inv = load_comp_dd(
         args.data_path,
         args.category,
         args.subset,
