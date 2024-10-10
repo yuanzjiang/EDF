@@ -1,106 +1,136 @@
-# Prioritize Alignment in Dataset Distillation
+# Emphasizing Discriminative Features for Dataset Distillation in Complex Scenarios
 
-![image-20240529113048331](README.assets/5.png)
+## [Project Page]() | [Paper]()
 
-> **Prioritize Alignment in Dataset Distillation**
->
-> Zekai Li, Ziyao Guo, Wangbo Zhao, Tianle Zhang, Zhi-Qi Cheng, Samir Khaki, Kaipeng Zhang, Ahmad Sajed, Konstantinos N Plataniotis, Kai Wang, Yang You
->
-> National University of Singapore, Carnegie Mellon University, University of Toronto, Shanghai AI Laboratory
+This is the official implmentation of the paper xxx.
 
 ## Introduction
 
-Matching-based Dataset Distillation methods can be summarized into two steps:
+![workflow](README.assets/workflow.png)
 
-1. *Information Extraction*: an agent model is used to extract important information from the target dataset by recording various metrics such as gradients distributions, and training trajectories.
-2. *Information Embedding*: the synthetic samples are optimized to incorporate the extracted information, which is achieved by minimizing the differences between the same metric calculated on the synthetic data and the one recorded in the previous step.
+In this work, we propose to emphasize discriminative features for dataset distillation in the complex scenario, i.e. images in complex scenarios are characterized by significant variations in object sizes and the presence of a large amount of class-irrelevant information.
 
-Previous matching-based Dataset Distillation methods introduce misaligned information, which is redundant and potentially detrimental to the quality of the synthetic data.
+EDF achieves this from supervision and data perspectives via a *Common Pattern Dropout* and a *Discriminative Area Enhancement* module, respectively:
 
+- **Common Pattern Dropout**: We drop low-loss suerpvision as it contains mainly common patterns and weakens the discriminative feature representation.
+- **Discriminative Area Enhancement**: We use Grad-CAM activation maps to create pixel gradients which serve as guidance of distillation. As a result, high-activation areas receive more updates.
 
-
-To address this, we prioritize alignment by filtering out misalignment information in both steps:
-
-1. For *Information extraction*, we employ the data selection strategy to let different IPCs extract patterns from subsets of data with expected difficulty levels.
-   ![image-20240529113048331](README.assets/intro_a.png)
-2. For *Information Embedding*, we mask out shallow-layer parameters during matching to avoid excessively injecting low-level information.
-   ![image-20240529113048331](README.assets/intro_b.png)
-
-## Results
-
-**PAD** is built on TM-based methods and achieve new SOTAs on several well-known benchmarks.
-
-![image-20240529113048331](README.assets/1.png)
-
-## Cross-Architecture
-
-Distilled images by PAD generalize well on other model architectures
-
-![image-20240529113143147](README.assets/6.png)
-
-## Discussions
-
-Effect of masking out shallow-layer parameters
-
-![image-20240529113143147](README.assets/2.png)
+## Peformance
 
 
-
-Filtering misaligned information is also effective on matching gradients or distributions
-
-1) Filtering *information extraction*:
-
-<img src="README.assets/3.png" style="zoom=60%;" />
-
-2. Filtering *information embedding*:
-   <img src="README.assets/4.png" style="" />
-
-   
 
 ## Getting Started
 
-1. **Create environment as follows**
+Create environment as follows:
+
 ```bash
 conda env create -f environment.yaml
-conda activate distillation
+conda activate dd
 ```
-2. **Generate expert trajectories**
+
+## Train Expert Trajectories
+
+To train expert trajectories, you can run
+
 ```bash
-cd buffer
-python buffer_CL.py --dataset=CIFAR10 --model=ConvNet --train_epochs=100 --num_experts=100 --zca --buffer_path=../buffer_storage/ --data_path=../dataset/ --sort_method="CIFAR10_GraNd" --rho_max=0.01 --rho_min=0.01 --alpha=0.3 --lr_teacher=0.01 --mom=0. --batch_train=256 --init_ratio=0.75 --add_end_epoch=20 --rm_epoch_first=40 --rm_epoch_second=60 --rm_easy_ratio_first=0.1 --rm_easy_ratio_second=0.2
+bash scripts/buffer.sh
 ```
-Hyper-parameters:
 
-- `sort_method`: Data selection strategy. More can be found in https://github.com/PatrickZH/DeepCore.git
-- `init_ratio`: Initial ratio of easy samples in the original dataset to start training
-- `add_end_epoch`: The ending epoch for hard sample addition
-- `rm_epoch_first`: The starting epoch of the first removing easy sample stage
-- `rm_epoch_second`: The starting epoch of the second removing easy sample stage
-- `rm_easy_ratio_first`: Ratio of easy samples removed in the first stage
-- `rm_easy_ratio_second`: Ratio of easy samples removed in the second stage
+In the script, we demo with the "ImageNette" subset.  Change the argument `--subset` to other subsets when training expert trajectories on them.
 
-3. **Perform the distillation**
-   Filter parameters by depth:
+For the list of available subsets, please refer to `utils/utils_gsam`.
 
-   ```bash
-   cd distill
-   python PAD_depth.py --cfg ../configs/xxxx.yaml
-   ```
+## Distill
 
-   Filter parameters by loss:
+To perform distillation, please run:
 
-   ```bash
-   cd distill
-   python PAD_loss.py --cfg ../configs/xxxx.yaml
-   ```
+```bash
+bash scripts/distill_in1k_ipc1.sh # for ipc1
+bash scripts/distill_in1k_ipc1.sh # for ipc10
+bash scripts/distill_in1k_ipc1.sh # for ipc50
+```
 
-## Evaluation
-We provide a simple script for evaluating the distilled datasets.
+Similarly, the sample scripts provided use "ImageNette" for demo. You can change the subset easily as follows:
+
 ```bash
 cd distill
-python evaluation.py --lr_dir=path_to_lr --data_dir=path_to_images --label_dir=path_to_labels --zca
+CFG="../configs/ImageNet/SUBSET/ConvIN/IPC1.yaml" # replace the SUBSET with the one you want to distill
+python3 edf_distill.py --cfg $CFG
 ```
+
+Hyper-parameters in each config file in `configs` are the ones used in EDF main experiments. Feel free to play around with other hyper-parameters for distillation by modifying the corresponding config file.
+
+## Evaluation
+
+By default, we perform evaluation along after every 500/1000 iterations. If you want to evaluate distilled explicitly, you can run
+
+```bash
+cd distill
+python3 evaluation.py --lr_dir=path_to_lr --data_dir=path_to_images --label_dir=path_to_labels
+```
+
+In our paper, we also use knowledge distillation to ensure a fair comparison against methods that integrate knowledge distillation during evaluation. For detailed implementation, please refer to the official codebase of [SRe2L](https://github.com/VILA-Lab/SRe2L.git) and [RDED](https://github.com/LINs-lab/RDED.git).
+
+## Comp-DD Benchmark
+
+We are excited to release the Complex Dataset Distillation benchmark (Comp-DD), an early effort for the community to explore effective dataset distillation methods in the complex scenario.
+
+For the detail of Comp-DD, please refer to Section 3 our paper.
+
+We provide fundemental ways to load data, perform distillation, and evaluate.
+
+### Load Data
+
+We provide an interface to load any subset of Comp-DD in `comp-dd/load_data`.  A sample usage is provided below:
+
+```python
+data_path = "/path/to/imagenet" 
+category = "bird" # must be one of ['bird', 'dog', 'car', 'fish', 'insect', 'snake', 'round', 'music']
+subset = "easy" # must be easy or hard
+im_size = (128, 128) # by default, we use resolution 128x128
+batch_size = 256
+
+channel, im_size, num_classes, dst_train, dst_test, class_map, class_map_inv = load_comp_dd(data_path, category, subset, im_size, batch_size)
+
+image, label = dst_train[0]
+```
+
+Explanation of return values:
+
+- `channel`: The number of channles of an image. By default is 3, referring to R, G, B.
+- `im_size`: The size of an image. By default is 128x128.
+- `num_classes`: The number of classes of the loaded subset. In Comp-DD, we use 10-class subsets.
+- `dst_train`: The train dataset. Each element of the dataset is a tuple of an image and its label.
+- `dst_test`: The test dataset.
+- `class_map`: The mapping from original ImageNet-1K class indices to `[0, num_classes-1]` for each class in the subset.
+- `class_map_inv`: The reverse class index mapping.
+
+### Evaluation
+
+After you obatin distilled datasets with your method, you can use our evaluation script to evaluate the performance by running the follow:
+
+```bash
+python3 eval.py 
+--data_path /path/to/imagenet --data_dir /path/to/syn_images --label_dir /path/to/syn_labels --lr_dir /path/to/syn_lr 
+--category bird --subset "easy"
+--model ConvNetD5 --lr_net 1e-2
+```
+
+We implement the evaluation with differentiable Siamese augmentation. You can disable the augmentation by setting `--dsa False`. 
+
+We do not use knowledge distillation strategy to evaluate the synthetic data. Specifically, the student model is trained by minimizing the Cross-Entropy loss between output logits and labels. 
+
+Moreover, we implement the soft Cross-Entropy loss to cope with soft labels as follows:
+
+```python
+def SoftCrossEntropy(inputs, target):
+    input_log_likelihood = -torch.nn.functional.log_softmax(inputs, dim=1)
+    target_log_likelihood = torch.nn.functional.softmax(target, dim=1)
+    batch = inputs.shape[0]
+    loss = torch.sum(torch.mul(input_log_likelihood, target_log_likelihood)) / batch
+    return loss
+```
+
 ## Acknowledgement
-Our code is built upon [DATM](https://github.com/NUS-HPC-AI-Lab/DATM.git)
-## Citation
-If you find our code useful for your research, please cite our paper.
+
+Our code is built on [PAD](https://github.com/NUS-HPC-AI-Lab/PAD)
