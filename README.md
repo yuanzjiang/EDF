@@ -17,7 +17,7 @@ EDF achieves this from supervision and data perspectives via a *Common Pattern D
 
 ## Peformance
 
-![Screenshot 2024-10-13 at 9.09.59 PM](README.assets/Screenshot 2024-10-13 at 9.09.59 PM.png)
+![Screenshot 2024-10-13 at 9.09.59 PM](README.assets/performance.png)
 
 EDF demonstrates prominent peroformances on several ImageNet-1K subsets compared with various baselines. 
 
