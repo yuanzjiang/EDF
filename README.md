@@ -2,7 +2,11 @@
 
 ## [Project Page]() | [Paper]()
 
-This is the official implmentation of the paper xxx.
+> Kai Wang\*, Zekai Li\*, Zhi-Qi Cheng, Samir Khaki, Ahmad Sajedi, Ramakrishna Vedantam, Konstantinos N Plataniotis, Alexander Hauptmann, Yang You
+>
+> National University of Singapore, Carnegie Mellon University, University of Toronto, Independent Researcher
+>
+> *equal contribution
 
 ## Introduction
 
@@ -83,4 +87,4 @@ In our paper, we also use knowledge distillation to ensure a fair comparison aga
 
 ## Acknowledgement
 
-Our code is built on [PAD](https://github.com/NUS-HPC-AI-Lab/PAD). We thank Bo Zhao, Guang Li, Dai Liu, Zhenghao Zhao, Songhua Liu, Ruonan Yu, Zhiyuan Liang, and Gongfan Fang for valuable discussions and feedbacks.
+Our code is built on [PAD](https://github.com/NUS-HPC-AI-Lab/PAD)
