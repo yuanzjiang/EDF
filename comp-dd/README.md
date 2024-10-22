@@ -10,7 +10,7 @@ We breiefly describe how to construct Comp-DD as follows. For more details, plea
 
 1. **Evaluate complexity**: We first use our complexity metrics to evaluate all classes of ImageNet-1K. We use the percentage of pixels with activation values above a predefined threshold (set to 0.5 in our case) to measure the complexity. The larger the value, the lower the complexity. Formally, the complexity of an image if defined as
 
-$$ 1 - \frac{\sum_{h}\sum_{w} \mathbb{I}[M^{i}_{h,w} \geq 0.5]}{H \cdot W} \nonumber $$
+$ 1 - \frac{\sum_{h}\sum_{w} \mathbb{I}[M^{i}_{h,w} \geq 0.5]}{H \cdot W} \nonumber $
 
 Then, the complexity of each class is then determined by averaging the complexity scores across all images within that class.
 
