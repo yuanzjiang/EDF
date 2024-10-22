@@ -83,4 +83,4 @@ In our paper, we also use knowledge distillation to ensure a fair comparison aga
 
 ## Acknowledgement
 
-Our code is built on [PAD](https://github.com/NUS-HPC-AI-Lab/PAD)
+Our code is built on [PAD](https://github.com/NUS-HPC-AI-Lab/PAD). We thank Bo Zhao, Guang Li, Dai Liu, Zhenghao Zhao, Songhua Liu, Ruonan Yu, Zhiyuan Liang, and Gongfan Fang for valuable discussions and feedbacks.
