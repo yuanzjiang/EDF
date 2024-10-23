@@ -1,6 +1,6 @@
 # Emphasizing Discriminative Features for Dataset Distillation in Complex Scenarios
 
-## [Project Page]() | [Paper]()
+## [Project Page]() | [Paper](http://arxiv.org/abs/2410.17193)
 
 > Kai Wang\*, Zekai Li\*, Zhi-Qi Cheng, Samir Khaki, Ahmad Sajedi, Ramakrishna Vedantam, Konstantinos N Plataniotis, Alexander Hauptmann, Yang You
 >
