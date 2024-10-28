@@ -60,8 +60,8 @@ To perform distillation, please run:
 
 ```bash
 bash scripts/distill_in1k_ipc1.sh # for ipc1
-bash scripts/distill_in1k_ipc1.sh # for ipc10
-bash scripts/distill_in1k_ipc1.sh # for ipc50
+bash scripts/distill_in1k_ipc10.sh # for ipc10
+bash scripts/distill_in1k_ipc50.sh # for ipc50
 ```
 
 Similarly, the sample scripts provided use "ImageNette" for demo. You can change the subset easily as follows:
