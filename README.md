@@ -38,7 +38,7 @@ Please navigate to [comp-dd](https://github.com/NUS-HPC-AI-Lab/EDF/tree/main/com
 Create environment as follows:
 
 ```bash
-conda env create -f environment.yaml
+conda env create -f environment.yml
 conda activate dd
 ```
 
