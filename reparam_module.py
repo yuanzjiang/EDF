@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from matplotlib.cm import ScalarMappable
 
+# testfyc
 
 class ReparamModule(nn.Module):
     def _get_module_from_name(self, mn):
