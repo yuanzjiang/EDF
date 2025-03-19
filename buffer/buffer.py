@@ -11,7 +11,6 @@ from utils.utils_gsam import get_dataset, get_network, get_daparam, get_imagenet
 import copy
 import multiprocessing as mp
 import warnings
-import torchvision.transforms as transforms
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
@@ -20,13 +19,7 @@ def train(args, channel, num_classes, im_size, trainloader, testloader, save_dir
     trajectories = []
     for it in range(args.num_experts):
         ''' Train synthetic data '''
-        if hasattr(args, 'im_size') and args.im_size > 0:
-            model_im_size = (args.im_size, args.im_size)
-            print(f"使用命令行参数中的图像大小: {model_im_size}")
-        else:
-            model_im_size = im_size
-            
-        teacher_net = get_network(args.model, channel, num_classes, model_im_size).to(args.device) # get a random model
+        teacher_net = get_network(args.model, channel, num_classes, im_size).to(args.device) # get a random model
         teacher_net.train()
         lr = args.lr_teacher
         
@@ -82,11 +75,6 @@ def main(args):
     if args.dataset != "ImageNet":
         channel, im_size, num_classes, class_names, mean, std, dst_train, dst_test, testloader, loader_train_dict, \
         class_map, class_map_inv = get_dataset(args.dataset, args.data_path, args.batch_real, args.subset, args=args)
-        
-        # 使用命令行参数的num_classes覆盖默认值（如果存在）
-        if hasattr(args, 'num_classes') and args.num_classes > 0:
-            num_classes = args.num_classes
-            print(f"覆盖类别数为命令行参数值: {num_classes}")
     
     else:
         channel, im_size, num_classes, class_names, mean, std, dst_train, dst_test, testloader, loader_train_dict, \
@@ -109,19 +97,10 @@ def main(args):
     images_all = []
     labels_all = []
     indices_class = [[] for c in range(num_classes)]
-    
-    # 添加固定大小变换
-    resize_transform = transforms.Compose([
-        transforms.Resize((256, 256))  # 调整所有图像为相同大小
-    ])
-    
     print("BUILDING DATASET")
     for i in tqdm(range(len(dst_train))):
         sample = dst_train[i]
-        img = sample[0]
-        # 确保图像大小一致
-        img = resize_transform(img)
-        images_all.append(torch.unsqueeze(img, dim=0))
+        images_all.append(torch.unsqueeze(sample[0], dim=0))
         labels_all.append(class_map[torch.tensor(sample[1]).item()])
     #print('num of training images',len(images_all))
     len_dst_train = len(images_all)  ##50000
@@ -169,8 +148,6 @@ if __name__ == '__main__':
     parser.add_argument('--mom', type=float, default=0, help='momentum')
     parser.add_argument('--l2', type=float, default=0, help='l2 regularization')
     parser.add_argument('--save_interval', type=int, default=10)
-    parser.add_argument('--num_classes', type=int, default=0, help='number of classes, 0 means use default')
-    parser.add_argument('--im_size', type=int, default=0, help='size for both height and width of the input image')
     #parser.add_argument('--rho', type=float, default=0.05)
     parser.add_argument("--rho_max", default=2.0, type=float, help="Rho parameter for SAM.")
     parser.add_argument("--rho_min", default=2.0, type=float, help="Rho parameter for SAM.")
