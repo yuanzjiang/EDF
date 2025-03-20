@@ -183,9 +183,16 @@ def get_dataset(dataset, data_path, batch_size=1, subset="imagenette", args=None
         mean = [0.485, 0.456, 0.406]
         std = [0.229, 0.224, 0.225]
         if args.zca:
-            transform = transforms.Compose([transforms.ToTensor()])
+            transform = transforms.Compose([
+                transforms.Resize(im_size),  # 确保所有图像大小相同
+                transforms.ToTensor()
+            ])
         else:
-            transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean=mean, std=std)])
+            transform = transforms.Compose([
+                transforms.Resize(im_size),  # 确保所有图像大小相同
+                transforms.ToTensor(), 
+                transforms.Normalize(mean=mean, std=std)
+            ])
         dst_train = datasets.ImageFolder(os.path.join(data_path, "train"), transform=transform) # no augmentation
         dst_test = datasets.ImageFolder(os.path.join(data_path, "val"), transform=transform)
         class_names = dst_train.classes

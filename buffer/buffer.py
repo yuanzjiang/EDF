@@ -11,6 +11,7 @@ from utils.utils_gsam import get_dataset, get_network, get_daparam, get_imagenet
 import copy
 import multiprocessing as mp
 import warnings
+import torchvision.transforms as transforms
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
@@ -97,10 +98,19 @@ def main(args):
     images_all = []
     labels_all = []
     indices_class = [[] for c in range(num_classes)]
+    
+    # 添加固定大小变换
+    resize_transform = transforms.Compose([
+        transforms.Resize((64, 64))  # 调整所有图像为相同大小
+    ])
+    
     print("BUILDING DATASET")
     for i in tqdm(range(len(dst_train))):
         sample = dst_train[i]
-        images_all.append(torch.unsqueeze(sample[0], dim=0))
+        img = sample[0]
+        # 确保图像大小一致
+        img = resize_transform(img)
+        images_all.append(torch.unsqueeze(img, dim=0))
         labels_all.append(class_map[torch.tensor(sample[1]).item()])
     #print('num of training images',len(images_all))
     len_dst_train = len(images_all)  ##50000
