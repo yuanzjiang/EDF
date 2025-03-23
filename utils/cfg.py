@@ -115,6 +115,8 @@ CFG.name = 'RANDOM'
 CFG.threshold = 1.
 CFG.loss_threshold = 1.0
 CFG.act_threshold = 0.0
+# 添加beta参数的定义
+CFG.beta = 1.0
 # Record loss
 CFG.record_loss = False
 

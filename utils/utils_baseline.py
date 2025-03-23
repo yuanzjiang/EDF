@@ -48,7 +48,7 @@ class ResizedImageNetDataset(Dataset):
 
 
 class Config:
-    imagenette = [0, 217, 482, 491, 497, 566, 569, 571, 574, 701]
+    imagenette = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     imagewoof = [193, 182, 258, 162, 155, 167, 159, 273, 207, 229]
 
@@ -217,7 +217,7 @@ def get_dataset(dataset, data_path, batch_size=1, subset="imagenette", args=None
                                             transforms.Resize(im_size),
                                             transforms.CenterCrop(im_size)])
 
-        dst_train = datasets.ImageNet(data_path, split="train", transform=transform)  # no augmentation
+        dst_train = datasets.ImageFolder(os.path.join(data_path, "train"), transform=transform)
         dst_train_dict = {c: torch.utils.data.Subset(dst_train, np.squeeze(
             np.argwhere(np.equal(dst_train.targets, config.img_net_classes[c])))) for c in
                           range(len(config.img_net_classes))}
@@ -226,7 +226,7 @@ def get_dataset(dataset, data_path, batch_size=1, subset="imagenette", args=None
         loader_train_dict = {
             c: torch.utils.data.DataLoader(dst_train_dict[c], batch_size=batch_size, shuffle=True, num_workers=16) for c
             in range(len(config.img_net_classes))}
-        dst_test = datasets.ImageNet(data_path, split="val", transform=transform)
+        dst_test = datasets.ImageFolder(os.path.join(data_path, "val"), transform=transform)
         dst_test = torch.utils.data.Subset(dst_test,
                                            np.squeeze(np.argwhere(np.isin(dst_test.targets, config.img_net_classes))))
         for c in range(len(config.img_net_classes)):

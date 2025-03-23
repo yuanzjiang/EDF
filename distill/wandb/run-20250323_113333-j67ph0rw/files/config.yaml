@@ -1,0 +1,232 @@
+wandb_version: 1
+
+cfg:
+  desc: null
+  value: ../configs/ImageNet/Imagenette/ConvIN/IPC10.yaml
+dataset:
+  desc: null
+  value: ImageNet
+subset:
+  desc: null
+  value: imagenette
+model:
+  desc: null
+  value: ConvNetD5
+model_name:
+  desc: null
+  value: ResNet18
+activation_model_path:
+  desc: null
+  value: /home/kwang/big_space/lzk/cifar_models/CIFAR10/ResNet18_best.pt
+target_layer_shallow:
+  desc: null
+  value: null
+target_layer_deep:
+  desc: null
+  value: layer4
+ipc:
+  desc: null
+  value: 10
+eval_mode:
+  desc: null
+  value: S
+num_eval:
+  desc: null
+  value: 1
+eval_it:
+  desc: null
+  value: 500
+epoch_eval_train:
+  desc: null
+  value: 1000
+Iteration:
+  desc: null
+  value: 10000
+interval:
+  desc: null
+  value: 100
+lr_img:
+  desc: null
+  value: 1000
+lr_teacher:
+  desc: null
+  value: 0.01
+lr_init:
+  desc: null
+  value: 0.01
+batch_real:
+  desc: null
+  value: 256
+batch_syn:
+  desc: null
+  value: 200
+batch_train:
+  desc: null
+  value: 128
+pix_init:
+  desc: null
+  value: samples_predicted_correctly
+dsa:
+  desc: null
+  value: true
+dsa_strategy:
+  desc: null
+  value: color_crop_cutout_flip_scale_rotate
+data_path:
+  desc: null
+  value: /home/fangyuanchen/code/dataset/imagenet
+buffer_path:
+  desc: null
+  value: ../buffer_storage/in1k
+expert_epochs:
+  desc: null
+  value: 2
+syn_steps:
+  desc: null
+  value: 40
+max_start_epoch:
+  desc: null
+  value: 20
+min_start_epoch:
+  desc: null
+  value: 0
+zca:
+  desc: null
+  value: false
+load_all:
+  desc: null
+  value: false
+no_aug:
+  desc: null
+  value: false
+texture:
+  desc: null
+  value: false
+canvas_size:
+  desc: null
+  value: 2
+canvas_samples:
+  desc: null
+  value: 1
+max_files:
+  desc: null
+  value: null
+max_experts:
+  desc: null
+  value: null
+force_save:
+  desc: null
+  value: false
+ema_decay:
+  desc: null
+  value: 0.9995
+lr_y:
+  desc: null
+  value: 2.0
+Momentum_y:
+  desc: null
+  value: 0.9
+project:
+  desc: null
+  value: LRI-DD
+name:
+  desc: null
+  value: imagenette_ipc10
+threshold:
+  desc: null
+  value: 1.5
+loss_threshold:
+  desc: null
+  value: 0.25
+act_threshold:
+  desc: null
+  value: 0.0
+beta:
+  desc: null
+  value: 1.0
+record_loss:
+  desc: null
+  value: false
+Sequential_Generation:
+  desc: null
+  value: true
+expansion_end_epoch:
+  desc: null
+  value: 1000
+current_max_start_epoch:
+  desc: null
+  value: 10
+init_frozen:
+  desc: null
+  value: start
+skip_first_eva:
+  desc: null
+  value: false
+parall_eva:
+  desc: null
+  value: false
+lr_lr:
+  desc: null
+  value: 1.0e-05
+res:
+  desc: null
+  value: 128
+device:
+  desc: null
+  value: cuda
+Initialize_Label_With_Another_Model:
+  desc: null
+  value: false
+Initialize_Label_Model:
+  desc: null
+  value: ''
+Initialize_Label_Model_Dir:
+  desc: null
+  value: ''
+Label_Model_Timestamp:
+  desc: null
+  value: -1
+im_size:
+  desc: null
+  value:
+  - 128
+  - 128
+dc_aug_param:
+  desc: null
+  value: null
+dsa_param:
+  desc: null
+  value: <utils.utils_baseline.ParamDiffAug object at 0x7f20ba973be0>
+_wandb:
+  desc: null
+  value:
+    python_version: 3.9.19
+    cli_version: 0.17.3
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1742700813
+    t:
+      1:
+      - 1
+      - 41
+      - 49
+      - 55
+      - 71
+      - 79
+      2:
+      - 1
+      - 41
+      - 49
+      - 55
+      - 71
+      - 79
+      3:
+      - 13
+      - 16
+      - 23
+      4: 3.9.19
+      5: 0.17.3
+      8:
+      - 5
+      13: linux-x86_64

@@ -14,6 +14,9 @@ ema_decay: 0.9995
 Iteration: 10000
 batch_syn: 200
 
+# 更新数据路径为绝对路径
+data_path: /home/fangyuanchen/code/dataset/imagenet
+
 # wandb
 project: LRI-DD
 name: imagenette_ipc10

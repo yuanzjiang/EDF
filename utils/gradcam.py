@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from PIL import Image
 from torchvision import datasets, transforms
-from torchvision.models import resnet18, resnet50, get_model
+from torchvision.models import resnet18, resnet50
 from torch.utils.data import DataLoader, TensorDataset
 from torchcam.methods import SmoothGradCAMpp
 from torchcam.utils import overlay_mask
@@ -93,7 +93,7 @@ def get_activation_maps(image_syn, label_syn, num_classes, ipc, im_size, model_n
     if dataset == 'ImageNet':
         
         if model_name.startswith("ResNet"):
-            model = resnet18(weights='IMAGENET1K_V1').eval()
+            model = resnet18(pretrained=True).eval()
             target_layers = [target_layer]
         elif model_name.startswith("ConvNet"):
             model = get_network(model_name, 3, num_classes, im_size, dist=False).eval()
@@ -106,7 +106,9 @@ def get_activation_maps(image_syn, label_syn, num_classes, ipc, im_size, model_n
     elif dataset == 'Tiny':
 
         if model_name.startswith("ResNet"):
-            model = get_model('resnet18', num_classes=200)
+            # 使用resnet18创建模型并自定义分类层
+            model = resnet18(pretrained=True)
+            model.fc = nn.Linear(model.fc.in_features, 200)  # 为Tiny-ImageNet设置200类
             model.conv1 = nn.Conv2d(3,64, kernel_size=(3,3), stride=(1,1), padding=(1,1), bias=False)
             model.maxpool = nn.Identity()
 

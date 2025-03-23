@@ -1,0 +1,29 @@
+2025-03-23 11:33:33,503 INFO    MainThread:36752 [wandb_setup.py:_flush():76] Current SDK version is 0.17.3
+2025-03-23 11:33:33,503 INFO    MainThread:36752 [wandb_setup.py:_flush():76] Configure stats pid to 36752
+2025-03-23 11:33:33,503 INFO    MainThread:36752 [wandb_setup.py:_flush():76] Loading settings from /home/fangyuanchen/.config/wandb/settings
+2025-03-23 11:33:33,503 INFO    MainThread:36752 [wandb_setup.py:_flush():76] Loading settings from /home/fangyuanchen/code/EDF/distill/wandb/settings
+2025-03-23 11:33:33,503 INFO    MainThread:36752 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2025-03-23 11:33:33,503 INFO    MainThread:36752 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2025-03-23 11:33:33,503 INFO    MainThread:36752 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'distill/edf_distill.py', 'program_abspath': '/home/fangyuanchen/code/EDF/distill/edf_distill.py', 'program': '/home/fangyuanchen/code/EDF/distill/edf_distill.py'}
+2025-03-23 11:33:33,503 INFO    MainThread:36752 [wandb_setup.py:_flush():76] Applying login settings: {}
+2025-03-23 11:33:33,503 INFO    MainThread:36752 [wandb_setup.py:_flush():76] Applying login settings: {'api_key': '***REDACTED***'}
+2025-03-23 11:33:33,504 INFO    MainThread:36752 [wandb_init.py:_log_setup():520] Logging user logs to /home/fangyuanchen/code/EDF/distill/wandb/run-20250323_113333-j67ph0rw/logs/debug.log
+2025-03-23 11:33:33,504 INFO    MainThread:36752 [wandb_init.py:_log_setup():521] Logging internal logs to /home/fangyuanchen/code/EDF/distill/wandb/run-20250323_113333-j67ph0rw/logs/debug-internal.log
+2025-03-23 11:33:33,504 INFO    MainThread:36752 [wandb_init.py:init():560] calling init triggers
+2025-03-23 11:33:33,504 INFO    MainThread:36752 [wandb_init.py:init():567] wandb.init called with sweep_config: {}
+config: {'cfg': '../configs/ImageNet/Imagenette/ConvIN/IPC10.yaml', 'dataset': 'ImageNet', 'subset': 'imagenette', 'model': 'ConvNetD5', 'model_name': 'ResNet18', 'activation_model_path': '/home/kwang/big_space/lzk/cifar_models/CIFAR10/ResNet18_best.pt', 'target_layer_shallow': None, 'target_layer_deep': 'layer4', 'ipc': 10, 'eval_mode': 'S', 'num_eval': 1, 'eval_it': 500, 'epoch_eval_train': 1000, 'Iteration': 10000, 'interval': 100, 'lr_img': 1000, 'lr_teacher': 0.01, 'lr_init': 0.01, 'batch_real': 256, 'batch_syn': 200, 'batch_train': 128, 'pix_init': 'samples_predicted_correctly', 'dsa': True, 'dsa_strategy': 'color_crop_cutout_flip_scale_rotate', 'data_path': '/home/fangyuanchen/code/dataset/imagenet', 'buffer_path': '../buffer_storage/in1k', 'expert_epochs': 2, 'syn_steps': 40, 'max_start_epoch': 20, 'min_start_epoch': 0, 'zca': False, 'load_all': False, 'no_aug': False, 'texture': False, 'canvas_size': 2, 'canvas_samples': 1, 'max_files': None, 'max_experts': None, 'force_save': False, 'ema_decay': 0.9995, 'lr_y': 2.0, 'Momentum_y': 0.9, 'project': 'LRI-DD', 'name': 'imagenette_ipc10', 'threshold': 1.5, 'loss_threshold': 0.25, 'act_threshold': 0.0, 'beta': 1.0, 'record_loss': False, 'Sequential_Generation': True, 'expansion_end_epoch': 1000, 'current_max_start_epoch': 10, 'init_frozen': 'start', 'skip_first_eva': False, 'parall_eva': False, 'lr_lr': 1e-05, 'res': 128, 'device': 'cuda', 'Initialize_Label_With_Another_Model': False, 'Initialize_Label_Model': '', 'Initialize_Label_Model_Dir': '', 'Label_Model_Timestamp': -1, 'im_size': (128, 128), 'dc_aug_param': None, 'dsa_param': <utils.utils_baseline.ParamDiffAug object at 0x7f20ba973be0>}
+2025-03-23 11:33:33,504 INFO    MainThread:36752 [wandb_init.py:init():610] starting backend
+2025-03-23 11:33:33,504 INFO    MainThread:36752 [wandb_init.py:init():614] setting up manager
+2025-03-23 11:33:33,506 INFO    MainThread:36752 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-03-23 11:33:33,508 INFO    MainThread:36752 [wandb_init.py:init():622] backend started and connected
+2025-03-23 11:33:33,518 INFO    MainThread:36752 [wandb_init.py:init():711] updated telemetry
+2025-03-23 11:33:33,559 INFO    MainThread:36752 [wandb_init.py:init():744] communicating run to backend with 600.0 second timeout
+2025-03-23 11:33:34,233 INFO    MainThread:36752 [wandb_run.py:_on_init():2402] communicating current version
+2025-03-23 11:33:35,219 INFO    MainThread:36752 [wandb_run.py:_on_init():2411] got version response upgrade_message: "wandb version 0.19.8 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2025-03-23 11:33:35,220 INFO    MainThread:36752 [wandb_init.py:init():795] starting run threads in backend
+2025-03-23 11:33:39,268 INFO    MainThread:36752 [wandb_run.py:_console_start():2380] atexit reg
+2025-03-23 11:33:39,268 INFO    MainThread:36752 [wandb_run.py:_redirect():2235] redirect: wrap_raw
+2025-03-23 11:33:39,268 INFO    MainThread:36752 [wandb_run.py:_redirect():2300] Wrapping output streams.
+2025-03-23 11:33:39,269 INFO    MainThread:36752 [wandb_run.py:_redirect():2325] Redirects installed.
+2025-03-23 11:33:39,271 INFO    MainThread:36752 [wandb_init.py:init():838] run started, returning control to user process
